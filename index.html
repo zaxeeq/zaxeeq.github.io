@@ -1,4 +1,39 @@
-<script>
-let js = 'javascript:(function(){ fetch("https://chat.cz/json/toggleFavoriteRoom", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", }, body: "roomId=20918" }) })();'
-alert(js);
-</script>
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat.cz srdíčko</title>
+  <script>
+    function doMagic()
+    {
+        const roomId = document.getElementById('roomId').value;
+
+        if (!/^[0-9]{1,6}$/.test(roomId)) 
+        {
+            window.alert('Zadej platné číslo místnosti.');
+            return;
+        }
+
+        const js = 'javascript:(function(){ fetch("https://chat.cz/json/toggleFavoriteRoom", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", }, body: "roomId=' + roomId + '" }) })();'
+      
+        var bm = document.getElementById('bm');
+        bm.href = js;
+
+        document.getElementById('boxik').style.display = 'block';
+    }
+
+  </script>
+</head>
+
+<body>
+    ID místnosti: <input type="number" min="1" max="1000000" id="roomId" placeholder="např. 4524" />
+    <button type="button" onclick="doMagic()">Vygenerovat bookmarklet</button>
+
+    <div id="boxik" style="display: none; margin-top: 30px;">
+        Přetáhni odkaz do záložek: <a id="bm">Bookmarklet</a>
+    </div>
+</body>
+
+</html>
